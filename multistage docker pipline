@@ -1,0 +1,27 @@
+FROM ubuntu:latest as build
+WORKDIR /code
+COPY ./code ./code
+COPY ./rooling-file ./
+RUN echo "app build succseffuly" > ./rooling-file
+
+FROM alpine:latest as unit-test
+WORKDIR /unit-test
+COPY --from=build /code/rooling-file ./
+RUN echo "unit test pass" >> ./rooling file
+
+FROM monitoring:1 as alert-system
+COPY --from=unit-test /unit-test ./
+
+FROM alpine:latest as web-app
+WORKDIR /code
+COPY --from=builder /code/*.jar ./
+CMD echo "image for prod ready" > info
+
+
+
+docker file for monitoring
+
+FROM  alpine:latest
+WORKDIR /alert
+RUN echo "runing the monitory"  
+CMD echo "no alert was made"
