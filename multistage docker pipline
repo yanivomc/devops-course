@@ -17,9 +17,7 @@ WORKDIR /code
 COPY --from=builder /code/*.jar ./
 CMD echo "image for prod ready" > info
 
-
-
-docker file for monitoring
+#docker file for monitoring
 
 FROM  alpine:latest
 WORKDIR /alert
